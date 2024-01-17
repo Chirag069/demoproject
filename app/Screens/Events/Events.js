@@ -10,14 +10,15 @@ import EventsItem from './Components/EventsItem';
 
 const Events = () => {
   const dispatch = useDispatch();
+
+  const {geteventdata} = useSelector(state => state.HomeReducer);
+  const {isLoading} = useSelector(state => state.GlobalReducer);
+
   useFocusEffect(
     React.useCallback(() => {
       dispatch(GetEventsAction(() => {}));
     }, []),
   );
-
-  const {geteventdata} = useSelector(state => state.HomeReducer);
-  const {isLoading} = useSelector(state => state.GlobalReducer);
 
   return (
     <MainContainer absoluteLoading={isLoading}>
