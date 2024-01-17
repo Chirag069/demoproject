@@ -9,6 +9,15 @@ const authReducer = (state = initialState, action) => {
     case types.EVENTS: {
       return {...state, ...action.payload};
     }
+    case types.LIKE: {
+      return {
+        geteventdata: state.geteventdata.map(item =>
+          item.event_id === action.payload
+            ? {...item, isFavorite: item.isFavorite == 0 ? 1 : 0}
+            : item,
+        ),
+      };
+    }
     default: {
       return state;
     }

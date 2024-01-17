@@ -19,7 +19,7 @@ export const GetEventsAction = successCallback => {
           if (data.success) {
             dispatch({
               type: types.EVENTS,
-              payload: {geteventdata: data.data},
+              payload: {geteventdata: data.data.events},
             });
             successCallback(data.data);
             dispatch(GlobalAction.handleLoader(false));
@@ -39,5 +39,14 @@ export const GetEventsAction = successCallback => {
         dispatch(GlobalAction.handleLoader(false));
       },
     );
+  };
+};
+
+export const LikeAction = id => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: types.LIKE,
+      payload: id,
+    });
   };
 };

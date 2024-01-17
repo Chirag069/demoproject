@@ -6,7 +6,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Navigation from './Navigation';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {persistor, store} from './Redux/store';
-import SignIn from './Screens/SignIn/SignIn';
+import {white} from './utils/color';
 
 const App = () => {
   return (
@@ -14,6 +14,7 @@ const App = () => {
       <SafeAreaProvider>
         <Provider store={store}>
           <PersistGate loading={true} persistor={persistor}>
+            <StatusBar backgroundColor={white} barStyle={'dark-content'} />
             <Navigation />
           </PersistGate>
         </Provider>

@@ -1,11 +1,22 @@
-import {StyleSheet, View} from 'react-native';
+import {
+  Linking,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import {Card, Chip, Text} from 'react-native-paper';
 import ProgressiveImage from '../../../components/ProgresshivImage/ProgressiveImage';
 import scale, {verticalScale} from '../../../utils/scale';
 import {black, grey6, offWhite, themecolor, white} from '../../../utils/color';
+import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {useDispatch} from 'react-redux';
+import {LikeAction} from '../../../Redux/actions/HomeAction';
 
 const EventsItem = ({item}) => {
+  const dispatch = useDispatch();
   return (
     <Card style={styles.cardcontainer}>
       <View style={styles.cardsubcontainer}>
@@ -15,7 +26,9 @@ const EventsItem = ({item}) => {
         />
 
         <View style={styles.carddetailcontainer}>
-          <Text style={styles.eventlable}>{item.event_name}</Text>
+          <Text numberOfLines={1} style={styles.eventlable}>
+            {item.event_name}
+          </Text>
           <View style={styles.rowcontainer}>
             <Text style={styles.timetext}>
               {item.readable_from_date}-{item.readable_to_date}
@@ -29,7 +42,7 @@ const EventsItem = ({item}) => {
               {item.event_price_from}-{item.event_price_to}
             </Text>
           </View>
-          <View style={styles.rowcontainer}>
+          <View style={[styles.rowcontainer]}>
             {item.danceStyles.map(item => {
               return (
                 <View
@@ -39,13 +52,31 @@ const EventsItem = ({item}) => {
                     paddingVertical: verticalScale(5),
                     borderRadius: scale(10),
                   }}>
-                  <Text>{item.ds_name}</Text>
+                  <Text style={[styles.timetext, {color: black}]}>
+                    {item.ds_name}
+                  </Text>
                 </View>
               );
             })}
+            <View style={[styles.rowcontainer, {gap: scale(5)}]}>
+              <Pressable onPress={() => Linking.openURL(item.event_url)}>
+                <Feather name="share" size={25} color={black} />
+              </Pressable>
+              <TouchableOpacity
+                onPress={() => dispatch(LikeAction(item.event_id))}>
+                <AntDesign
+                  name={item.isFavorite ? 'heart' : 'hearto'}
+                  size={25}
+                  color={themecolor}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
+      <TouchableOpacity style={{position: 'absolute', right: -5, top: -5}}>
+        <AntDesign name="arrowright" size={25} color={black} />
+      </TouchableOpacity>
     </Card>
   );
 };

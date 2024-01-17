@@ -5,8 +5,10 @@ import {
   ScrollView,
   ImageBackground,
   StyleSheet,
+  TouchableNativeFeedbackBase,
+  Pressable,
 } from 'react-native';
-import React, {version} from 'react';
+import React, {useState, version} from 'react';
 import MainContainer from '../../components/MainContainer';
 import scale, {verticalScale} from '../../utils/scale';
 import {
@@ -25,9 +27,11 @@ import Button from '../../components/button/Button';
 import FastImage from 'react-native-fast-image';
 import {useDispatch, useSelector} from 'react-redux';
 import {onHandleLogin} from '../../Redux/actions/AuthAction';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const SignIn = () => {
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
   const {isLoading} = useSelector(state => state.GlobalReducer);
 
   const loginHandler = values => {
@@ -79,7 +83,7 @@ const SignIn = () => {
             style={{}}
             keyboardShouldPersistTaps="handled">
             <ImageBackground
-              source={require('../../assets/img/background19.jpg')}
+              source={require('../../assets/img/background4.jpg')}
               style={{height: verticalScale(280), width: '100%'}}>
               <Text style={styles.logotext}>Plie</Text>
             </ImageBackground>
@@ -97,18 +101,28 @@ const SignIn = () => {
               <View style={{marginTop: verticalScale(10)}}>
                 <Text style={styles.labletext}>Password</Text>
                 <InputBox
+                  rightIcon={() => (
+                    <TouchableOpacity onPress={() => setShow(!show)}>
+                      <MaterialCommunityIcons
+                        name={show ? 'eye' : 'eye-off'}
+                        size={scale(22)}
+                        color={black}
+                      />
+                    </TouchableOpacity>
+                  )}
                   placeholder="Password"
-                  secureTextEntry
+                  secureTextEntry={!show}
                   value={values.password}
                   onChangeText={handleChange('password')}
                   onBlur={() => setFieldTouched('password')}
                   touched={touched.password}
                   errors={errors.password}
                 />
-
-                <Text style={[styles.smalltext, {alignSelf: 'flex-end'}]}>
-                  Forget password?
-                </Text>
+                <TouchableOpacity>
+                  <Text style={[styles.smalltext, {alignSelf: 'flex-end'}]}>
+                    Forget password?
+                  </Text>
+                </TouchableOpacity>
               </View>
 
               <Button
@@ -148,30 +162,30 @@ const SignIn = () => {
               </View>
 
               <View style={styles.logoview}>
-                <View style={styles.boxview}>
+                <TouchableOpacity style={styles.boxview}>
                   <FastImage
                     source={{
                       uri: 'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
                     }}
                     style={styles.imageview}
                   />
-                </View>
-                <View style={styles.boxview}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.boxview}>
                   <FastImage
                     source={{
                       uri: 'https://e7.pngegg.com/pngimages/980/413/png-clipart-apple-logo-business-iphone-apple-heart-computer.png',
                     }}
                     style={styles.imageview}
                   />
-                </View>
-                <View style={styles.boxview}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.boxview}>
                   <FastImage
                     source={{
                       uri: 'https://cdn-icons-png.flaticon.com/256/124/124010.png',
                     }}
                     style={styles.imageview}
                   />
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </ScrollView>

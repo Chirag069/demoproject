@@ -4,7 +4,14 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import scale, {verticalScale} from '../utils/scale';
-import {black, themecolor, themeshade, white} from '../utils/color';
+import {
+  black,
+  grey5,
+  grey6,
+  themecolor,
+  themeshade,
+  white,
+} from '../utils/color';
 import {useSelector} from 'react-redux';
 import Home from '../Screens/Home/Home';
 import Events from '../Screens/Events/Events';
@@ -43,7 +50,9 @@ const TabStack = () => {
           tabBarIcon: ({focused}) => (
             <Ionicons
               name={focused ? 'search' : 'search'}
-              style={styles.inactiveiconestyle}
+              style={
+                focused ? styles.inactiveiconestyle : styles.activeiconestyle
+              }
             />
           ),
         }}
@@ -57,7 +66,9 @@ const TabStack = () => {
           tabBarIcon: ({focused}) => (
             <Ionicons
               name={'calendar-outline'}
-              style={styles.inactiveiconestyle}
+              style={
+                focused ? styles.inactiveiconestyle : styles.activeiconestyle
+              }
             />
           ),
         }}
@@ -69,7 +80,12 @@ const TabStack = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
-            <FontAwesome name={'heart-o'} style={styles.inactiveiconestyle} />
+            <FontAwesome
+              name={'heart-o'}
+              style={
+                focused ? styles.inactiveiconestyle : styles.activeiconestyle
+              }
+            />
           ),
         }}
       />
@@ -79,7 +95,12 @@ const TabStack = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
-            <FontAwesome name={'user-o'} style={styles.inactiveiconestyle} />
+            <FontAwesome
+              name={'user-o'}
+              style={
+                focused ? styles.inactiveiconestyle : styles.activeiconestyle
+              }
+            />
           ),
         }}
       />
@@ -97,7 +118,7 @@ const styles = StyleSheet.create({
   },
   activeiconestyle: {
     fontSize: scale(30),
-    color: themeshade,
+    color: grey5,
   },
   inactiveiconestyle: {
     fontSize: scale(30),

@@ -11,4 +11,5 @@ export default {
 
   // Home action types
   EVENTS: 'EVENTS',
+  LIKE: 'LIKE',
 };
